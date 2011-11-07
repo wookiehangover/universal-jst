@@ -1,11 +1,11 @@
 {
   "author": "wookiehangover <sam@quickleft.com>",
-  "name": "jquery-tmpl-jst",
+  "name": "handlebars-jst",
   "description": "Pre-compiled jQuery Templates",
-  "version": "0.0.6",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "github.com:wookiehangover/jquery-tmpl-jst.git"
+    "url": "github.com:wookiehangover/handlebars-jst.git"
   },
   "engines": {
     "node": ">=0.4.7"
@@ -16,7 +16,7 @@
   "devDependencies": {
     "jasmine-node": "~1.0.6"
   },
-  "homepage": "https://github.com/wookiehangover/jquery-tmpl-jst",
+  "homepage": "https://github.com/wookiehangover/handlebars-jst",
   "main": "./lib/index",
   "scripts": {
     "test": "jasmine-node ./test"

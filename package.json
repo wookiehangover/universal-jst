@@ -1,0 +1,25 @@
+{
+  "author": "wookiehangover <sam@quickleft.com>",
+  "name": "jquery-tmpl-jst",
+  "description": "Pre-compiled jQuery Templates",
+  "version": "0.0.6",
+  "repository": {
+    "type": "git",
+    "url": "github.com:wookiehangover/jquery-tmpl-jst.git"
+  },
+  "engines": {
+    "node": ">=0.4.7"
+  },
+  "dependencies": {
+    "handlebars": "1.0.2beta"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.0.6"
+  },
+  "homepage": "https://github.com/wookiehangover/jquery-tmpl-jst",
+  "main": "./lib/index",
+  "scripts": {
+    "test": "jasmine-node ./test"
+  },
+  "bin": { "tmpl": "./bin/tmpl.js" }
+}

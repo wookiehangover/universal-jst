@@ -2,13 +2,13 @@
   "author": "wookiehangover <sam@quickleft.com>",
   "name": "handlebars-jst",
   "description": "Pre-compiled jQuery Templates",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "github.com:wookiehangover/handlebars-jst.git"
   },
   "engines": {
-    "node": ">=0.4.7"
+    "node": "~0.6.0"
   },
   "dependencies": {
     "handlebars": "1.0.2beta"

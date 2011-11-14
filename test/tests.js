@@ -1,23 +1,21 @@
+/*jshint onevar: false */
+/*globals Handlebars, JST, $ */
+
 module("jquery-tmpl-jst");
-
-test("creates a global JST object",function(){
-  expect(1);
-  ok(window.JST);
-});
-
-module("sample template");
 
 test("sample template should exist",function(){
   ok(JST.sample);
 });
 
 test("template should compile as expected", function(){
-  expect(2);
-  var tmp = JST.sample({ title: 'foobar', foo: [ 'bar', 'bar', 'bar' ] }),
-      content = $('<div>').html( tmp );
+  var data = {
+    title: 'foobar'
+  };
 
-  equals( content.find('h1').text(), 'foobar');
-  equals( content.find('div').length, 3);
+  var tmp = JST.sample( data );
+  var content = $('<div>').html( tmp );
+
+  equal( content.find('h1').text(), 'foobar');
 });
 
 

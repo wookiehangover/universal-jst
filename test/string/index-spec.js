@@ -1,6 +1,6 @@
 /*global jasmine, describe, it, beforeEach */
 
-var tmpl = require('../lib/index.js');
+var tmpl = require('../../lib/string-jst');
 
 describe('basic requirements', function(){
   it('should exist', function(){
@@ -14,22 +14,20 @@ describe('#build', function(){
     expect(tmpl.build).toBeDefined();
   });
 
-  it('should read a directory of tempaltes', function(){
-    tmpl.build('example/templates', function( output ){
+  it('should read a directory of templates', function(){
+    jasmine.asyncSpecWait();
+    tmpl.build('example/string/templates', function( output ){
       expect(/sample/.test(output)).toBeTruthy();
       jasmine.asyncSpecDone();
     });
-
-    jasmine.asyncSpecWait();
   });
 
   it('should parse subtemplates', function(){
-    tmpl.build('example/templates', function( output ){
+    jasmine.asyncSpecWait();
+    tmpl.build('example/string/templates', function( output ){
       expect(/multiple_footer/.test( output )).toBeTruthy();
       jasmine.asyncSpecDone();
     });
-
-    jasmine.asyncSpecWait();
   });
 
 });

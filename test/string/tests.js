@@ -12,7 +12,7 @@ test("template should compile as expected", function(){
     title: 'foobar'
   };
 
-  var tmp = JST.sample( data );
+  var tmp = _.template(JST.sample, data );
   var content = $('<div>').html( tmp );
 
   equal( content.find('h1').text(), 'foobar');

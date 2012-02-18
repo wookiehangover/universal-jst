@@ -1,0 +1,23 @@
+{{tmpl JST.templates.multiple_header}}
+<p>This is a sample template</p>
+{{tmpl JST.templates.multiple_foo_bar }}
+
+{{tmpl JST.templates.multiple_footer}}
+
+
+/* header */
+<h1>${title}</h1>
+
+/*footer*/
+<h1>${title}</h1>
+
+/*foo_bar*/
+{{if foo}}
+  {{each foo}}
+    <div>${$value}</div>
+  {{/each}}
+{{/if}}
+
+
+
+

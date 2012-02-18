@@ -1,20 +1,44 @@
-# JST for Handlebars
+# Universal JST
 
-handlebars-jst: Pre-compiled Handlebars with Node.js
+universal-jst: Pre-compiled JavaScript Templates (JST) with Node.js
 
-## Install with NPM
-The best / easiest way to start using handlebars-jst is to install it
-with npm, which looks something like this: `npm install handlebars-jst`
+The following templates work:
 
-Be sure to use the `--global` option if you'd like to use the command
-line tool.
+* handlebars
+* jquery-tmpl
+* underscore
+* string ( to be compiled later on the client side )
 
-## Basic usage
+## CLI usage
+
+universal-jst also comes with a command line tool, which you can use
+like this:
+
+    $ jst --template hbs --inuptdir path/to/templates --outputdir path/to/save --watch
+
+This creates the file `templates.js` to the target directory. If no
+arguments are passed, the current path will be used instead.
+
+Usage :
+
+    Usage: node jst [--template string|underscore|_|jquery-tmpl|handlebars|hbs]
+
+    Options:
+      --template, -t   [required]
+      --inputdir, -i   [default: "/home/romain/handlebars-jst"]
+      --outputdir, -o  [default: "/home/romain/handlebars-jst"]
+      --watch, -w      [default: false]
+
+
+## Basic usage.
+
+I explain how to do it with handlebars-jst but it's the same for the
+other allowed templates.
 
 Incant handlebars-jst into your application with a require statement,
 and jquery-tmpl-just will expose 2 functions: `build` and `process`
 
-    var tmpl = require('handlebars-jst');
+    var tmpl = require('./lib/handlebars-jst');
 
     // Builds a template string
     tmpl.build( 'path/to/my/templates', function( output ){
@@ -29,16 +53,6 @@ function.
 
 Process creates a file called `templates.js` in the specified target
 directory. It accepts a template string and a the target location.
-
-## CLI usage
-
-handlebars-jst also comes with a command line tool, which you can use
-like this:
-
-    $ tmpl path/to/templates path/to/save
-
-This creates the file `templates.js` to the target directory. If no
-arguments are passed, the current path will be used instead.
 
 ## Using as a Cakefile
 

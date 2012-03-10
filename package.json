@@ -30,5 +30,6 @@
   },
   "bin": {
     "jst": "./bin/jst.js"
-  }
+  },
+  "main": "./universal-jst.js"
 }

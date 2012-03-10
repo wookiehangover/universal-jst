@@ -25,20 +25,20 @@ Usage :
 
     Options:
       --template, -t   [required]
-      --inputdir, -i   [default: "/home/romain/handlebars-jst"]
-      --outputdir, -o  [default: "/home/romain/handlebars-jst"]
+      --inputdir, -i   [default: "."]
+      --outputdir, -o  [default: "."]
       --watch, -w      [default: false]
 
 
 ## Basic usage.
 
-I explain how to do it with handlebars-jst but it's the same for the
+I explain how to do it with universal-jst but it's the same for the
 other allowed templates.
 
-Incant handlebars-jst into your application with a require statement,
-and jquery-tmpl-just will expose 2 functions: `build` and `process`
+Incant universal-jst into your application with a require statement,
+and universal-jst will expose 2 functions: `build` and `process`
 
-    var tmpl = require('./lib/handlebars-jst');
+    var tmpl = require('./lib/universal-jst');
 
     // Builds a template string
     tmpl.build( 'path/to/my/templates', function( output ){

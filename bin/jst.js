@@ -2,6 +2,7 @@
 
 var optimist = require('optimist'),
   fs = require('fs'),
+  watch = require('watch').watchTree,
   _ = require('underscore'),
   allowedTmpl = 'string|underscore|_|jquery-tmpl|handlebars|hbs';
   argv = optimist.usage('Usage: $0 [--template ' + allowedTmpl + ']')
@@ -32,5 +33,5 @@ compile.throttled = _.throttle(compile, 100);
 
 compile();
 if(argv.watch){
-  return fs.watch(argv.inputdir, compile.throttled);
+  return watch(argv.inputdir, compile.throttled);
 }

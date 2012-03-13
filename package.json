@@ -3,10 +3,12 @@
   "name": "universal-jst",
   "description": "Pre-compiled JavaScript Templates",
   "version": "0.1.0",
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "github.com:wookiehangover/handlebars-jst.git"
@@ -18,18 +20,20 @@
     "handlebars": "~1.0.2beta",
     "jqtpl": "~1.0.9",
     "underscore": "~1.3.1",
-    "optimist": "~0.3.1"
+    "optimist": "~0.3.1",
+    "read-dir-files": "~0.1.0",
+    "async": "~0.1.18",
+    "watch": "~0.5.0"
   },
   "devDependencies": {
     "jasmine-node": "~1.0.6"
   },
   "homepage": "https://github.com/wookiehangover/handlebars-jst",
-  "main": "./lib/index",
+  "main": "./universal-jst.js",
   "scripts": {
     "test": "jasmine-node test"
   },
   "bin": {
     "jst": "./bin/jst.js"
-  },
-  "main": "./universal-jst.js"
+  }
 }

@@ -28,3 +28,8 @@ test("should created sub templates", function(){
   ok(window.JST.multiple_foo_bar);
 });
 
+module("subfolders templates");
+
+test("sample template should exist",function(){
+  ok(JST["subfolder/subsub/sample"]);
+});

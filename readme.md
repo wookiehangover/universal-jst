@@ -2,77 +2,92 @@
 
 universal-jst: Pre-compiled JavaScript Templates (JST) with Node.js
 
+Transform a set of HTML or template files into javascript functions
+ready to be used.
+
 The following templates work:
 
-* handlebars
-* jquery-tmpl
-* underscore
+* [handlebars](http://handlebarsjs.com/)
+* [jquery-tmpl](http://api.jquery.com/jquery.tmpl/)
+* [underscore](http://documentcloud.github.com/underscore/#template)
 * string ( to be compiled later on the client side )
+
+
+## Quick-start:
+
+    jst --template handlebars templates/ javascripts/templates.js
+
+Edit your index.html, and add:
+
+    <script src="lib/handlebars.runtime-1.0.0.beta.6.js"></script>
+    <script src="javascripts/templates.js"></script>
+
+In your javascript application, use the compiled templates this way:
+
+    var data = { title: "foobar" },
+        compiled_template = window.JST.sample_template( my_data );
+
+    $('body').html( compiled_template );
+
+## Install
+
+    git clone https://github.com/wookiehangover/universal-jst.git universal-jst
+    cd universal-jst
+    npm install -g
 
 ## CLI usage
 
-universal-jst also comes with a command line tool, which you can use
-like this:
+universal-jst comes with a command line tool.
 
-    $ jst --template hbs --inuptdir path/to/templates --outputdir path/to/save --watch
+    $ jst --template [template_engine] [path/to/templates] [path/to/output]
 
-This creates the file `templates.js` to the target directory. If no
-arguments are passed, the current path will be used instead.
+or
+
+    $ jst --template [template-engine] [path/to/templates] --stdout > [path/to/output]
 
 Usage :
 
-    Usage: node jst [--template string|underscore|_|jquery-tmpl|handlebars|hbs]
+    Usage: /home/romain/universal-jst/bin/jst.js [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs] [INPUT_DIR] [OUTPUT]
 
     Options:
-      --template, -t   [required]
-      --inputdir, -i   [default: "."]
-      --outputdir, -o  [default: "."]
-      --watch, -w      [default: false]
+      --template, -t     format: string|underscore|_|jquery-engine|handlebars|hbs    [required]
+      --inputdir, -i     directory containings the templates to compile              [default: "$CWD"]
+      --output, -o       output where templates will be compiled                     [default: "$CWD"]
+      --watch, -w        watch `inputdir` for change                                 [default: false]
+      --namespace, --ns  object in the browser containing the templates              [default: "window.JST"]
+      --include, -I      Glob patterns for templates files to include in `inputdir`  [default: "**/*"]
+      --stdout, -s       Print the result in stdout instead of writing in a file     [default: false]
+      --verbose, -v      Print logs for debug                                        [default: false]
 
+## Node usage.
 
-## Basic usage.
+Universal-JST export a list of engines.
 
-I explain how to do it with universal-jst but it's the same for the
-other allowed templates.
+    require('universal-jst')
+    {
+      handlebars: [Function: build],
+      string: [Function: build],
+      _: [Function: build],
+      hbs: [Function: build],
+      'jquery-tmpl': [Function: build],
+      underscore: [Function: build]
+    }
 
-Incant universal-jst into your application with a require statement,
-and universal-jst will expose 2 functions: `build` and `process`
+Just choose your engine and use it:
 
-    var tmpl = require('./lib/universal-jst');
-
-    // Builds a template string
-    tmpl.build( 'path/to/my/templates', function( output ){
-
-      // Creates a file called templates.js
-      tmpl.process( output, 'path/to/output/dir' );
+    var engines = require('universal-jst')
+    engines.hbs('./example/handlebars/templates/', function(err, data){
+      console.log(data.join('\n'));
     });
 
-Build creates a string of executable javascript from a directory of
-templates. It accepts the location of your templates and a callback
-function.
+Be aware that the result data is an array. You can filter this array if
+you want or just use the whole result by using `data.join('\n')`.
 
-Process creates a file called `templates.js` in the specified target
-directory. It accepts a template string and a the target location.
-
-## Using as a Cakefile
-
-Since this is really meant to be used as a build tool, a Cakefile is
-included as well, but keep in mind that _coffee-script must be included
-as a dependency in order to use the Cakefile_.
-
-Modify the Cakefile's `targetDir` and `templateDir` variables to point
-to you desired build location and the location of your templates,
-respectively.
-
-Run `cake build` or `cake watch` from the root of your project to
-generate the compiled templates. `cake watch` will listen for changes in
-your templates directory and run the build process on demand.
 
 ## JST Output
 
 To start using the compiled templates, just include `templates.js`. Keep
-in mind that these are just your templates, so you'll also need jQuery
-and jQuery-tmpl in there too.
+in mind that these are just your templates, so you'll also need your templates dependencies in there too.
 
 `templates.js` creates a global object called `window.JST`.
 
@@ -119,10 +134,24 @@ c-style comment with the sub-template name.
 This file will product 2 templates:
 
     JST = {
-      multiple_templates,
-      multiple_templates_foo
+      multiple_templates: function(){ /* */},
+      multiple_templates_foo: function(){ /* */}
     }
 
+## Templates in a subdirectory
+
+If you specify a recursive glob pattern (by default) : `**/*`, then
+templates in subfolders will be compiled too.
+
+    JST = {
+      "sub/folder/template": function(){ /* */},
+      "sub/sub/folder/template": function(){ /* */}
+    }
+
+The path separator is a `/`, so to get the template, use the hook
+notation.
+
+    JST["sub/folder/template"]
 
 ## Contributing
 

@@ -29,7 +29,7 @@ In your javascript application, use the compiled templates this way:
 
     $('body').html( compiled_template );
 
-For more examples, look at the [example](tree/master/example) folder.
+For more examples, look at the [example](universal-jst/tree/master/example) folder.
 
 ## Install
 

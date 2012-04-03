@@ -29,6 +29,8 @@ In your javascript application, use the compiled templates this way:
 
     $('body').html( compiled_template );
 
+For more examples, look at the [example](tree/master/example) folder.
+
 ## Install
 
     git clone https://github.com/wookiehangover/universal-jst.git universal-jst

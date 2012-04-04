@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>jQuery tmpl example</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+  <script src="jquery.tmpl.js"></script> 
+  <script src="templates.js"></script> 
+
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    var data = {
+      title: 'foobar'
+    };
+
+    var tmp = JST.sample( data );
+    var content = $('#content').html( tmp );
+  </script>
+</body>
+</html>

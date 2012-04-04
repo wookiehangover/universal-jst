@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pure string example</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+  <script src="underscore.js"></script> 
+  <script src="templates.js"></script> 
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    var data = {
+      title: 'foobar'
+    };
+
+    var str = JST.sample;
+    var tmp = _.template( str )( data );
+    var content = $('#content').html( tmp );
+  </script>
+</body>
+</html>

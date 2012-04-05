@@ -1,43 +1,99 @@
 #!/usr/bin/env node
 
-var optimist = require('optimist'),
-  fs = require('fs'),
-  coffee = require('coffee-script'), /* only for watchr */
-  watch = require('watchr').watch,
-  join = require('path').join,
-  _ = require('underscore'),
-  engines = require('../lib/index'),
-  allowedengine = 'format: string|underscore|_|jquery-engine|handlebars|hbs',
-  optimist = optimist.usage('Usage: $0 [--template ' + allowedengine + '] [INPUT_DIR] [OUTPUT]')
-  .alias('template', 't')
-  .describe('template', allowedengine)
-  .demand('template')
-  .alias('inputdir', 'i')
-  .describe('inputdir', 'directory containings the templates to compile')
-  .alias('output', 'o')
-  .describe('output', 'output where templates will be compiled')
-  .alias('watch', 'w')
-  .describe('watch', 'watch `inputdir` for change')
-  .alias('namespace', 'ns')
-  .describe('namespace', 'object in the browser containing the templates')
-  .alias('include', 'I')
-  .describe('include', 'Glob patterns for templates files to include in `inputdir`')
-  .alias('stdout', 's')
-  .describe('stdout', 'Print the result in stdout instead of writing in a file')
-  .alias('verbose', 'v')
-  .describe('verbose', 'Print logs for debug')
-  .default('inputdir', process.cwd())
-  .default('output', process.cwd())
-  .default('watch', false)
-  .default('namespace', engines.defaults.namespace)
-  .default('include', engines.defaults.include)
-  .default('stdout', false)
-  .default('verbose', engines.defaults.verbose),
-  options = optimist.argv,
-  inputdir;
+var nopt = require("nopt")
+  , fs = require('fs')
+  , coffee = require('coffee-script') /* only for watchr */
+  , watch = require('watchr').watch
+  , Path = require('path')
+  , join = Path.join
+  , _ = require('underscore')
+  , engines = require('../lib/index')
+  , allowedengine = ['string', 'underscore', '_', 'jquery-engine', 'handlebars', 'hbs']
+  , knownOpts = { "template"  : allowedengine
+                , "inputdir"  : Path
+                , "output"    : Path
+                , "watch"     : Boolean
+                , "namespace" : String
+                , "include"   : String
+                , "stdout"    : Boolean
+                , "verbose"   : Boolean
+                }
+  , description = { "template"  : "format : " + allowedengine.join('|')
+                  , "inputdir"  : "directory containings the templates to compile"
+                  , "output"    : "output where templates will be compiled"
+                  , "watch"     : "watch `inputdir` for change"
+                  , "namespace" : "object in the browser containing the templates"
+                  , "include"   : "Glob patterns for templates files to include in `inputdir`"
+                  , "stdout"    : "Print the result in stdout instead of writing in a file"
+                  , "verbose"   : "Print logs for debug"
+                  }
+  , defaults = { "inputdir"  : process.cwd()
+               , "output"    : process.cwd()
+               , "watch"     : false
+               , "namespace" : engines.defaults.namespace
+               , "include"   : engines.defaults.include
+               , "stdout"    : false
+               , "verbose"   : engines.defaults.verbose
+               }
+  , shortHands = { "t"  : ["--template"]
+                 , "i"  : ["--inputdir"]
+                 , "o"  : ["--output"]
+                 , "w"  : ["--watch"]
+                 , "ns" : ["--namespace"]
+                 , "I"  : ["--include"]
+                 , "s"  : ["--stdout"]
+                 , "v"  : ["--verbose"]
+                 }
+  , options = nopt(knownOpts, shortHands, process.argv, 2)
+  , inputdir;
 
-if(options._ && options._.length >=1 ) options.inputdir = options._[0];
-if(options._ && options._.length >=2 ) options.output = options._[1];
+// defaults value
+_(defaults).forEach(function(value, key){
+    options[key] = options[key] || value;
+})
+
+if(!options.template){
+  showUsage();
+  process.exit(-1);
+
+  function showUsage(){
+    var usage = 'Usage: jst [--template format: ' + allowedengine.join('|') + '] [INPUT_DIR] [OUTPUT]';
+    var out = {}
+      , getLenght = function( it ){ return it.length }
+      , optsLen  = _(_(description).keys()  ).max(getLenght).length
+      , descLen  = _(_(description).values()).max(getLenght).length
+      , shortLen = _(_(shortHands).keys()   ).max(getLenght).length;
+
+    var shortHands2 = {};
+    _(shortHands).forEach(function(value, key){
+      var opt = value[0].replace('--', '');
+      shortHands2[opt] = key;
+    });
+
+    _(description).forEach(function(value, key){
+        var cmd = rpad('--' + key + ' -' + shortHands2[key], ' ', optsLen + 8);
+      var txt = cmd + value || '';
+      out[key] = '  ' + rpad(txt, ' ', optsLen + 12 + descLen);
+    });
+
+    _(defaults).forEach(function(value, key){
+      out[key] += value
+    });
+
+    // string right padding helper
+    function rpad(str, padString, length) {
+      while (str.length < length)
+          str = str + padString;
+      return str;
+    }
+
+    console.error(usage + '\n');
+    console.error(_(out).values().join('\n'));
+  }
+}
+
+if(options.argv.remain && options.argv.remain.length >=1 ) options.inputdir = options.argv.remain[0];
+if(options.argv.remain && options.argv.remain.length >=2 ) options.output = options.argv.remain[1];
 
 if(!options.inputdir || !options.output) return optimist.showHelp();
 
@@ -50,7 +106,7 @@ var inputdir = options.inputdir;
 var engine = engines[options.template];
 
 function compile(){
-  if( options.verbose ) console.log("Use template format : " + options.template);
+  if( options.verbose ) console.log("Use template format : " + options.template.join('|'));
   engine( inputdir, options, function( err, compiledTemplates ){
     if( err ) return engines.handleError( err );
     write(compiledTemplates, function(err, output){

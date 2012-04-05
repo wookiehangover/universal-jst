@@ -1,43 +1,61 @@
 #!/usr/bin/env node
 
-var optimist = require('optimist'),
-  fs = require('fs'),
-  coffee = require('coffee-script'), /* only for watchr */
-  watch = require('watchr').watch,
-  join = require('path').join,
-  _ = require('underscore'),
-  engines = require('../lib/index'),
-  allowedengine = 'format: string|underscore|_|jquery-engine|handlebars|hbs',
-  optimist = optimist.usage('Usage: $0 [--template ' + allowedengine + '] [INPUT_DIR] [OUTPUT]')
-  .alias('template', 't')
-  .describe('template', allowedengine)
-  .demand('template')
-  .alias('inputdir', 'i')
-  .describe('inputdir', 'directory containings the templates to compile')
-  .alias('output', 'o')
-  .describe('output', 'output where templates will be compiled')
-  .alias('watch', 'w')
-  .describe('watch', 'watch `inputdir` for change')
-  .alias('namespace', 'ns')
-  .describe('namespace', 'object in the browser containing the templates')
-  .alias('include', 'I')
-  .describe('include', 'Glob patterns for templates files to include in `inputdir`')
-  .alias('stdout', 's')
-  .describe('stdout', 'Print the result in stdout instead of writing in a file')
-  .alias('verbose', 'v')
-  .describe('verbose', 'Print logs for debug')
-  .default('inputdir', process.cwd())
-  .default('output', process.cwd())
-  .default('watch', false)
-  .default('namespace', engines.defaults.namespace)
-  .default('include', engines.defaults.include)
-  .default('stdout', false)
-  .default('verbose', engines.defaults.verbose),
-  options = optimist.argv,
-  inputdir;
+var nopt = require("nopt")
+  , fs = require('fs')
+  , coffee = require('coffee-script') /* only for watchr */
+  , watch = require('watchr').watch
+  , Path = require('path')
+  , join = Path.join
+  , _ = require('underscore')
+  , engines = require('../lib/index')
+  , allowedengine = ['string', 'underscore', '_', 'jquery-engine', 'handlebars', 'hbs']
+  , knownOpts = { "template" : allowedengine
+                , "inputdir" : Path
+				, "output" : Path
+                , "watch" : Boolean
+			    , "namespace" : String
+			    , "include" : String
+                , "stdout" : Boolean
+                , "verbose" : Boolean
+                }
+  , shortHands = { "t" : ["--template"]
+                 , "i" : ["--inputdir"]
+                 , "o" : ["--output"]
+                 , "w" : ["--watch"]
+                 , "ns" : ["--namespace"]
+                 , "I" : ["--include"]
+                 , "s" : ["--stdout"]
+                 , "v" : ["--verbose"]
+                 }
+  , options = nopt(knownOpts, shortHands, process.argv, 2)
+  , inputdir;
 
-if(options._ && options._.length >=1 ) options.inputdir = options._[0];
-if(options._ && options._.length >=2 ) options.output = options._[1];
+// defaults value
+options.inputdir = options.inputdir || process.cwd()
+options.output = options.output || process.cwd()
+options.namespace = options.namespace || engines.defaults.namespace
+options.include = options.include || engines.defaults.include
+options.stdout = options.stdout || false
+options.verbose = options.verbose || engines.defaults.verbose
+
+if(!options.template){
+  console.error([ 'Usage: /home/romain/universal-jst/bin/jst.js [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs] [INPUT_DIR] [OUTPUT]'
+    , ''
+    , 'Options:'
+    , '  --template, -t     format: string|underscore|_|jquery-engine|handlebars|hbs    [required]'
+    , '  --inputdir, -i     directory containings the templates to compile              [default: "$CWD"]'
+    , '  --output, -o       output where templates will be compiled                     [default: "$CWD"]'
+    , '  --watch, -w        watch `inputdir` for change                                 [default: false]'
+    , '  --namespace, --ns  object in the browser containing the templates              [default: "window.JST"]'
+    , '  --include, -I      Glob patterns for templates files to include in `inputdir`  [default: "**/*"]'
+    , '  --stdout, -s       Print the result in stdout instead of writing in a file     [default: false]'
+    , '  --verbose, -v      Print logs for debug                                        [default: false]'
+  ].join('\n'))
+  process.exit(-1);
+}
+
+if(options.argv.remain && options.argv.remain.length >=1 ) options.inputdir = options.argv.remain[0];
+if(options.argv.remain && options.argv.remain.length >=2 ) options.output = options.argv.remain[1];
 
 if(!options.inputdir || !options.output) return optimist.showHelp();
 

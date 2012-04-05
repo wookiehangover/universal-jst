@@ -23,15 +23,16 @@
     "async": "~0.1.18",
     "coffee-script": "~1.2.0",
     "watchr": "~1.0.0",
-    "glob": "~3.1.9"
+    "glob": "~3.1.9",
+    "nopt": "~1.0.10"
   },
   "devDependencies": {
-    "vows": "~0.6.2",
+    "vows": "~0.6.2"
   },
   "homepage": "https://github.com/wookiehangover/handlebars-jst",
   "main": "./lib/index",
   "scripts": {
-    "test": "./node_modules/.bin/vows test/*.js --spec"
+    "test": "node ./node_modules/.bin/vows test/*.js --spec"
   },
   "bin": {
     "jst": "./bin/jst.js"

@@ -7,32 +7,31 @@ var nopt = require("nopt")
   , Path = require('path')
   , join = Path.join
   , _ = require('underscore')
-  , wordwrap = require('wordwrap')
   , engines = require('../lib/index')
   , allowedengine = ['string', 'underscore', '_', 'jquery-engine', 'handlebars', 'hbs']
   , knownOpts = { "template"  : allowedengine
                 , "inputdir"  : Path
-				, "output"    : Path
+                , "output"    : Path
                 , "watch"     : Boolean
-			    , "namespace" : String
-			    , "include"   : String
+                , "namespace" : String
+                , "include"   : String
                 , "stdout"    : Boolean
                 , "verbose"   : Boolean
                 }
   , description = { "template"  : "format : " + allowedengine.join('|')
                   , "inputdir"  : "directory containings the templates to compile"
-				  , "output"    : "output where templates will be compiled"
+                  , "output"    : "output where templates will be compiled"
                   , "watch"     : "watch `inputdir` for change"
-			      , "namespace" : "object in the browser containing the templates"
-			      , "include"   : "Glob patterns for templates files to include in `inputdir`"
+                  , "namespace" : "object in the browser containing the templates"
+                  , "include"   : "Glob patterns for templates files to include in `inputdir`"
                   , "stdout"    : "Print the result in stdout instead of writing in a file"
                   , "verbose"   : "Print logs for debug"
                   }
   , defaults = { "inputdir"  : process.cwd()
-			   , "output"    : process.cwd()
+               , "output"    : process.cwd()
                , "watch"     : false
-			   , "namespace" : engines.defaults.namespace
-			   , "include"   : engines.defaults.include
+               , "namespace" : engines.defaults.namespace
+               , "include"   : engines.defaults.include
                , "stdout"    : false
                , "verbose"   : engines.defaults.verbose
                }
@@ -57,24 +56,24 @@ if(!options.template){
   var usage = 'Usage: /home/romain/universal-jst/bin/jst.js [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs] [INPUT_DIR] [OUTPUT]';
   var out = {}
     , optsLen = _(_(description).keys()).max(function( it ){ return it.length}).length
-	, descLen = _(_(description).values()).max(function( it ){ return it.length}).length
-	, shortLen = _(_(shortHands).keys()).max(function( it ){ return it.length}).length;
+  , descLen = _(_(description).values()).max(function( it ){ return it.length}).length
+  , shortLen = _(_(shortHands).keys()).max(function( it ){ return it.length}).length;
 
   var shorts = {};
   _(shortHands).forEach(function(value, key){
-	var opt = value[0].replace('--', '');
-	shorts[opt] = key;
+  var opt = value[0].replace('--', '');
+  shorts[opt] = key;
   });
-	
+
   _(description).forEach(function(value, key){
     var cmd = rpad('--' + key + ' -' + shorts[key], ' ', optsLen + 8);
-	var txt = cmd + value || '';
-	out[key] = '  ' + rpad(txt, ' ', optsLen + 12 + descLen);
+  var txt = cmd + value || '';
+  out[key] = '  ' + rpad(txt, ' ', optsLen + 12 + descLen);
   });
   _(defaults).forEach(function(value, key){
-	out[key] += value
+  out[key] += value
   });
-  
+
   function rpad(str, padString, length) {
     while (str.length < length)
         str = str + padString;

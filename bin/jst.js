@@ -53,36 +53,43 @@ _(defaults).forEach(function(value, key){
 })
 
 if(!options.template){
-  var usage = 'Usage: /home/romain/universal-jst/bin/jst.js [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs] [INPUT_DIR] [OUTPUT]';
-  var out = {}
-    , optsLen = _(_(description).keys()).max(function( it ){ return it.length}).length
-  , descLen = _(_(description).values()).max(function( it ){ return it.length}).length
-  , shortLen = _(_(shortHands).keys()).max(function( it ){ return it.length}).length;
-
-  var shorts = {};
-  _(shortHands).forEach(function(value, key){
-  var opt = value[0].replace('--', '');
-  shorts[opt] = key;
-  });
-
-  _(description).forEach(function(value, key){
-    var cmd = rpad('--' + key + ' -' + shorts[key], ' ', optsLen + 8);
-  var txt = cmd + value || '';
-  out[key] = '  ' + rpad(txt, ' ', optsLen + 12 + descLen);
-  });
-  _(defaults).forEach(function(value, key){
-  out[key] += value
-  });
-
-  function rpad(str, padString, length) {
-    while (str.length < length)
-        str = str + padString;
-    return str;
-}
-  console.error(usage + '\n');
-
-  console.error(_(out).values().join('\n'));
+  showUsage();
   process.exit(-1);
+
+  function showUsage(){
+    var usage = 'Usage: jst [--template format: ' + allowedengine.join('|') + '] [INPUT_DIR] [OUTPUT]';
+    var out = {}
+      , getLenght = function( it ){ return it.length }
+      , optsLen  = _(_(description).keys()  ).max(getLenght).length
+      , descLen  = _(_(description).values()).max(getLenght).length
+      , shortLen = _(_(shortHands).keys()   ).max(getLenght).length;
+
+    var shortHands2 = {};
+    _(shortHands).forEach(function(value, key){
+      var opt = value[0].replace('--', '');
+      shortHands2[opt] = key;
+    });
+
+    _(description).forEach(function(value, key){
+        var cmd = rpad('--' + key + ' -' + shortHands2[key], ' ', optsLen + 8);
+      var txt = cmd + value || '';
+      out[key] = '  ' + rpad(txt, ' ', optsLen + 12 + descLen);
+    });
+
+    _(defaults).forEach(function(value, key){
+      out[key] += value
+    });
+
+    // string right padding helper
+    function rpad(str, padString, length) {
+      while (str.length < length)
+          str = str + padString;
+      return str;
+    }
+
+    console.error(usage + '\n');
+    console.error(_(out).values().join('\n'));
+  }
 }
 
 if(options.argv.remain && options.argv.remain.length >=1 ) options.inputdir = options.argv.remain[0];

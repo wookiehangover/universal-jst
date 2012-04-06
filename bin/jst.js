@@ -106,7 +106,7 @@ var inputdir = options.inputdir;
 var engine = engines[options.template];
 
 function compile(){
-  if( options.verbose ) console.log("Use template format : " + options.template.join('|'));
+  if( options.verbose ) console.log("Use template format : " + options.template);
   engine( inputdir, options, function( err, compiledTemplates ){
     if( err ) return engines.handleError( err );
     write(compiledTemplates, function(err, output){

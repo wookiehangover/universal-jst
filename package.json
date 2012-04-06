@@ -32,7 +32,7 @@
   "homepage": "https://github.com/wookiehangover/handlebars-jst",
   "main": "./lib/index",
   "scripts": {
-    "test": "node ./node_modules/.bin/vows test/*.js --spec"
+    "test": "vows test/universalJstTest.js --spec"
   },
   "bin": {
     "jst": "./bin/jst.js"

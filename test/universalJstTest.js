@@ -52,6 +52,23 @@ vows.describe('Test universal JST').addBatch({
       assert.include(window.JST["subfolder/subsub/sample"]({ title: 'hello', foo: [1,2,3] }), '<div>1</div>');
     }
   },
+  'When compiling underscore JST with a mustache interpolate regex': {
+    topic: function(){
+      engines.underscore(
+        example('handlebars'),
+        { include: 'sample.hbs', interpolate: '\{\{(.+?)\}\}'},
+        this.callback);
+    },
+    'Then an array is returned': function(arr){
+      assert.equal(arr.length, 3);
+    },
+    'Then the templates are valid': function(arr){
+      var str = arr.join('\n');
+      var window = {};
+      vm.runInNewContext(str, { window: window, _: _ });
+      assert.include(window.JST.sample({ title: 'hello' }), '<h1>hello</h1>');
+    }
+  },
   'When compiling handlebars JST': {
     topic: function(){
       engines.handlebars(example('handlebars'), this.callback)
@@ -88,19 +105,4 @@ vows.describe('Test universal JST').addBatch({
       assert.include(window.JST["subfolder/subsub/sample"]({ title: 'hello'}), '<h1>hello</h1>');
     }
   }
-}).addBatch({
-  'When compiling underscore JST with a mustache interpolate regex': {
-    topic: function(){
-      engines.underscore(example('handlebars'), { interpolate: '\{\{(.+?)\}\}'}, this.callback)
-    },
-    'Then an array is returned': function(arr){
-      assert.equal(arr.length, 8);
-    },
-    'Then the templates are valid': function(arr){
-      var str = arr.join('\n');
-      var window = {};
-      vm.runInNewContext(str, { window: window, _: _ });
-      assert.include(window.JST.sample({ title: 'hello' }), '<h1>hello</h1>');
-    }
-  },
 }).export(module);

@@ -4,6 +4,7 @@ var vows     = require('vows'),
   _          = require('underscore'),
   join       = require('path').join,
   Handlebars = require('handlebars'),
+  dust       = require('dustjs-linkedin'),
   jqtpl      = require('jqtpl'),
   vm         = require('vm'),
   engines    = require('../lib/index');
@@ -87,14 +88,14 @@ vows.describe('Test universal JST').addBatch({
       assert.include(window.JST["subfolder/subsub/sample"]({ title: 'hello'}), '<h1>hello</h1>');
     }
   },
-  'When compiling jQuery tmpl JST': {
+  'when compiling jquery tmpl jst': {
     topic: function(){
       engines['jquery-tmpl'](example('jquery-tmpl'), this.callback)
     },
-    'Then an array is returned': function(arr){
+    'then an array is returned': function(arr){
       assert.equal(arr.length, 8);
     },
-    'Then the templates are valid': function(arr){
+    'then the templates are valid': function(arr){
       var str = arr.join('\n');
       var window = {};
       vm.runInNewContext(str, { window: window, jQuery: jqtpl });
@@ -103,6 +104,25 @@ vows.describe('Test universal JST').addBatch({
       assert.include(window.JST.multiple_footer({ title: 'hello'}), '<h1>hello</h1>');
       assert.include(window.JST.multiple_foo_bar({ foo: [1,2,3] }), '<div>1</div>');
       assert.include(window.JST["subfolder/subsub/sample"]({ title: 'hello'}), '<h1>hello</h1>');
+    }
+  },
+  'when compiling dust jst': {
+    topic: function(){
+      engines.dust(example('dust'), this.callback)
+    },
+    'then an array is returned': function(arr){
+      assert.equal(arr.length, 3);
+    },
+    'When executing asynchronously the template': {
+      topic: function(arr){
+        var str = arr.join('\n');
+        var window = {};
+        vm.runInNewContext(str, { window: window, dust: dust });
+        window.JST.sample({ title: 'hello' }, this.callback);
+      },
+      'Then the result is valid': function(err, str){
+        assert.include(str, '<h1>hello</h1>')
+      }
     }
   }
 }).export(module);

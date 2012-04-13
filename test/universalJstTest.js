@@ -111,17 +111,45 @@ vows.describe('Test universal JST').addBatch({
       engines.dust(example('dust'), this.callback)
     },
     'then an array is returned': function(arr){
-      assert.equal(arr.length, 3);
+      assert.equal(arr.length, 5);
     },
-    'When executing asynchronously the template': {
+    'When asynchronously executing the sample template': {
       topic: function(arr){
-        var str = arr.join('\n');
         var window = {};
-        vm.runInNewContext(str, { window: window, dust: dust });
+        vm.runInNewContext(arr.join('\n'), { window: window, dust: dust });
+
+        function asyncHelloWorld(chunk) {
+            return chunk.map(function(chunk) {
+              dust.nextTick(function() {
+                chunk.end("hello");
+              });
+            });
+        }
+        window.JST.sample({ title: asyncHelloWorld }, this.callback);
+      },
+      'Then the result is valid': function(err, str){
+        assert.include(str, '<h1>hello</h1>')
+      }
+    },
+    'When synchronously executing the sample template': {
+      topic: function(arr){
+        var window = {};
+        vm.runInNewContext(arr.join('\n'), { window: window, dust: dust });
         window.JST.sample({ title: 'hello' }, this.callback);
       },
       'Then the result is valid': function(err, str){
         assert.include(str, '<h1>hello</h1>')
+      }
+    },
+    'When executing the partials template': {
+      topic: function(arr){
+        var window = {};
+        vm.runInNewContext(arr.join('\n'), { window: window, dust: dust });
+        window.JST.partials({ title: 'hello', ref: "sample" }, this.callback);
+      },
+      'Then the result is valid': function(err, str){
+        assert.include(str, '<h1>hello</h1>')
+        assert.include(str, 'This is a plain template')
       }
     }
   }

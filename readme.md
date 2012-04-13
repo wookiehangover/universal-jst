@@ -10,7 +10,8 @@ The following templates work:
 * [handlebars](http://handlebarsjs.com/)
 * [jquery-tmpl](http://api.jquery.com/jquery.tmpl/)
 * [underscore](http://documentcloud.github.com/underscore/#template)
-* string ( to be compiled later on the client side )
+* [dust](http://akdubya.github.com/dustjs/)
+* string ( useful for svg, or for templates to be compiled later on client side )
 
 
 ## Quick-start:

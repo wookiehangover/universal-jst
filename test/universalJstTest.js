@@ -4,6 +4,7 @@ var vows     = require('vows'),
   _          = require('underscore'),
   join       = require('path').join,
   Handlebars = require('handlebars'),
+  hogan      = require('hogan'),
   dust       = require('dustjs-linkedin'),
   jqtpl      = require('jqtpl'),
   vm         = require('vm'),
@@ -152,5 +153,21 @@ vows.describe('Test universal JST').addBatch({
         assert.include(str, 'This is a plain template')
       }
     }
-  }
+  },
+  'when compiling hogan': {
+    topic: function(){
+      engines['hogan'](example('hogan'), this.callback)
+    },
+    'then an array is returned': function(arr){
+      assert.equal(arr.length, 5);
+    },
+    'then the templates are valid': function(arr){
+      var str = arr.join('\n');
+      var window = {};
+      vm.runInNewContext(str, { window: window, Hogan: hogan });
+      assert.include(window.JST.sample({ title: 'hello' }), '<h1>hello</h1>');
+      assert.include(window.JST.partials({ title: 'hello'}), '<h1>hello</h1>');
+      assert.include(window.JST.partials({ title: 'hello'}), 'This is a plain template');
+    }
+  },
 }).export(module);

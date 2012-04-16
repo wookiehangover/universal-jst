@@ -25,7 +25,8 @@
     "watchr": "~1.0.0",
     "glob": "~3.1.9",
     "nopt": "~1.0.10",
-    "dustjs-linkedin": "~0.4.0"
+    "dustjs-linkedin": "~0.4.0",
+    "hogan": "~1.0.5-dev"
   },
   "devDependencies": {
     "vows": "~0.6.2"

@@ -11,6 +11,7 @@ The following templates work:
 * [jquery-tmpl](http://api.jquery.com/jquery.tmpl/)
 * [underscore](http://documentcloud.github.com/underscore/#template)
 * [dust](http://akdubya.github.com/dustjs/)
+* [mustache with hogan](http://twitter.github.com/hogan.js/)
 * string ( useful for svg, or for templates to be compiled later on client side )
 
 
@@ -50,17 +51,17 @@ or
 
 Usage :
 
-    Usage: /home/romain/universal-jst/bin/jst.js [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs] [INPUT_DIR] [OUTPUT]
+    $ jst [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu] [INPUT_DIR] [OUTPUT]
 
-    Options:
-      --template, -t     format: string|underscore|_|jquery-engine|handlebars|hbs    [required]
-      --inputdir, -i     directory containings the templates to compile              [default: "$CWD"]
-      --output, -o       output where templates will be compiled                     [default: "$CWD"]
-      --watch, -w        watch `inputdir` for change                                 [default: false]
-      --namespace, --ns  object in the browser containing the templates              [default: "window.JST"]
-      --include, -I      Glob patterns for templates files to include in `inputdir`  [default: "**/*"]
-      --stdout, -s       Print the result in stdout instead of writing in a file     [default: false]
-      --verbose, -v      Print logs for debug                                        [default: false]
+      --template -t    format : string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu
+      --inputdir -i    directory containings the templates to compile                                    $PWD
+      --output -o      output where templates will be compiled                                           $PWD
+      --watch -w       watch `inputdir` for change                                                       false
+      --namespace -ns  object in the browser containing the templates                                    window.JST
+      --include -I     Glob patterns for templates files to include in `inputdir`                        **/*
+      --stdout -s      Print the result in stdout instead of writing in a file                           false
+      --verbose -v     Print logs for debug                                                              false
+
 
 ## Node usage.
 
@@ -73,7 +74,11 @@ Universal-JST export a list of engines.
       _: [Function: build],
       hbs: [Function: build],
       'jquery-tmpl': [Function: build],
-      underscore: [Function: build]
+      underscore: [Function: build],
+      dust: [Function: build],
+      mu: [Function: build],
+      mustache: [Function: build],
+      hogan: [Function: build]
     }
 
 Just choose your engine and use it:

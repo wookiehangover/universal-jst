@@ -35,6 +35,10 @@ For more examples, look at the [example](universal-jst/tree/master/example) fold
 
 ## Install
 
+    npm install -g universal-jst
+
+Or from sources
+
     git clone https://github.com/wookiehangover/universal-jst.git universal-jst
     cd universal-jst
     npm install -g

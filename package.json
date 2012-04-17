@@ -1,8 +1,11 @@
 {
   "author": "wookiehangover <sam@quickleft.com>",
+  contributors:[
+    "filirom1 <filirom1@gmail.com>"
+  ],
   "name": "universal-jst",
   "description": "Pre-compiled JavaScript Templates",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "licenses": [
     {
       "type": "MIT",

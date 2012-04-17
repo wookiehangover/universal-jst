@@ -73,10 +73,13 @@ vows.describe('Test universal JST').addBatch({
   },
   'When compiling handlebars JST': {
     topic: function(){
-      engines.handlebars(example('handlebars'), this.callback)
+      engines.handlebars(example('handlebars'), {
+        verbose: true,
+        helpers: join(__dirname, '..', 'example', 'handlebars', 'helpers')
+      }, this.callback)
     },
     'Then an array is returned': function(arr){
-      assert.equal(arr.length, 8);
+      assert.equal(arr.length, 9);
     },
     'Then the templates are valid': function(arr){
       var str = arr.join('\n');
@@ -87,6 +90,16 @@ vows.describe('Test universal JST').addBatch({
       assert.include(window.JST.multiple_footer({ title: 'hello'}), '<h1>hello</h1>');
       assert.include(window.JST.multiple_foo_bar({ foo: [1,2,3] }), '<div>1</div>');
       assert.include(window.JST["subfolder/subsub/sample"]({ title: 'hello'}), '<h1>hello</h1>');
+
+      var context = {
+        author: {firstName: "Alan", lastName: "Johnson"},
+        body: "I Love Handlebars",
+        comments: [{
+          author: {firstName: "Yehuda", lastName: "Katz"},
+          body: "Me too!"
+        }]
+      };
+      assert.include(window.JST.helpers(context), '<h1>By Alan Johnson</h1>');
     }
   },
   'when compiling jquery tmpl jst': {

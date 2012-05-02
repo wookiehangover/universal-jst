@@ -78,7 +78,7 @@ vows.describe('Test universal JST').addBatch({
       }, this.callback)
     },
     'Then an array is returned': function(arr){
-      assert.equal(arr.length, 10);
+      assert.equal(arr.length, 11);
     },
     'Then the templates are valid': function(arr){
       var str = arr.join('\n');
@@ -99,9 +99,9 @@ vows.describe('Test universal JST').addBatch({
         }]
       };
       assert.include(window.JST.helpers(context), '<h1>By Alan Johnson</h1>');
-
       assert.include(window.JST.partials({ title: 'hello'}), '<h1>hello</h1>');
       assert.include(window.JST.partials({ title: 'hello'}), 'This is a plain template');
+      assert.include(window.JST.partials({ title: 'hello'}), 'This is a partial in a subdirectory');
     }
   },
   'when compiling jquery tmpl jst': {

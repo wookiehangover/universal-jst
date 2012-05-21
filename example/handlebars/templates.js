@@ -1,18 +1,60 @@
 (function(){ window.JST || (window.JST = {}) 
-Handlebars.registerPartial("partial", Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+Handlebars.registerHelper("fullName", function (person) {
+  return person.firstName + " " + person.lastName + " " + foo();
+
+  function foo(){
+    return 'foo';
+  }
+});window.JST["helpers"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
-  var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
-
-  buffer += "<div>woot- ";
-  foundHelper = helpers.foo;
-  stack1 = foundHelper || depth0.foo;
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n  <h2>By ";
+  foundHelper = helpers.author;
+  stack1 = foundHelper || depth0.author;
+  foundHelper = helpers.fullName;
+  stack2 = foundHelper || depth0.fullName;
+  if(typeof stack2 === functionType) { stack1 = stack2.call(depth0, stack1, { hash: {} }); }
+  else if(stack2=== undef) { stack1 = helperMissing.call(depth0, "fullName", stack1, { hash: {} }); }
+  else { stack1 = stack2; }
+  buffer += escapeExpression(stack1) + "</h2>\n  <div class=\"body\">";
+  foundHelper = helpers.body;
+  stack1 = foundHelper || depth0.body;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
-  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "foo", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</div>\n";
-  return buffer;}));
+  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "body", { hash: {} }); }
+  buffer += escapeExpression(stack1) + "</h2>\n  ";
+  return buffer;}
 
-window.JST["multiple"] = function(context) { return HandlebarsTemplates["multiple"](context); };this.HandlebarsTemplates || (this.HandlebarsTemplates = {});this.HandlebarsTemplates["multiple"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  buffer += "<div class=\"post\">\n  <h1>By ";
+  foundHelper = helpers.author;
+  stack1 = foundHelper || depth0.author;
+  foundHelper = helpers.fullName;
+  stack2 = foundHelper || depth0.fullName;
+  if(typeof stack2 === functionType) { stack1 = stack2.call(depth0, stack1, { hash: {} }); }
+  else if(stack2=== undef) { stack1 = helperMissing.call(depth0, "fullName", stack1, { hash: {} }); }
+  else { stack1 = stack2; }
+  buffer += escapeExpression(stack1) + "</h1>\n  <div class=\"body\">";
+  foundHelper = helpers.body;
+  stack1 = foundHelper || depth0.body;
+  if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "body", { hash: {} }); }
+  buffer += escapeExpression(stack1) + "</div>\n\n  <h1>Comments</h1>\n\n  ";
+  foundHelper = helpers.comments;
+  stack1 = foundHelper || depth0.comments;
+  stack2 = helpers.each;
+  tmp1 = self.program(1, program1, data);
+  tmp1.hash = {};
+  tmp1.fn = tmp1;
+  tmp1.inverse = self.noop;
+  stack1 = stack2.call(depth0, stack1, tmp1);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</div>\n";
+  return buffer;});
+Handlebars.partials["helpers"] = window.JST["helpers"]
+window.JST["multiple"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
@@ -24,8 +66,8 @@ window.JST["multiple"] = function(context) { return HandlebarsTemplates["multipl
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
-
-window.JST["multiple_footer"] = function(context) { return HandlebarsTemplates["multiple_footer"](context); };this.HandlebarsTemplates || (this.HandlebarsTemplates = {});this.HandlebarsTemplates["multiple_footer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+Handlebars.partials["multiple"] = window.JST["multiple"]
+window.JST["multiple_footer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
@@ -37,8 +79,8 @@ window.JST["multiple_footer"] = function(context) { return HandlebarsTemplates["
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
-
-window.JST["multiple_foo_bar"] = function(context) { return HandlebarsTemplates["multiple_foo_bar"](context); };this.HandlebarsTemplates || (this.HandlebarsTemplates = {});this.HandlebarsTemplates["multiple_foo_bar"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+Handlebars.partials["multiple_footer"] = window.JST["multiple_footer"]
+window.JST["multiple_foo_bar"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
@@ -78,8 +120,34 @@ function program2(depth0,data) {
   stack1 = stack2.call(depth0, stack1, tmp1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;});
+Handlebars.partials["multiple_foo_bar"] = window.JST["multiple_foo_bar"]
+window.JST["partials"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;
+  var buffer = "", stack1, foundHelper, self=this;
 
-window.JST["sample"] = function(context) { return HandlebarsTemplates["sample"](context); };this.HandlebarsTemplates || (this.HandlebarsTemplates = {});this.HandlebarsTemplates["sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+
+  stack1 = depth0;
+  stack1 = self.invokePartial(partials.sample, 'sample', stack1, helpers, partials);;
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  stack1 = depth0;
+  stack1 = self.invokePartial(partials.plain, 'plain', stack1, helpers, partials);;
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  stack1 = depth0;
+  stack1 = self.invokePartial(partials['subfolder.subsub._sample'], 'subfolder.subsub._sample', stack1, helpers, partials);;
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  return buffer;});
+Handlebars.partials["partials"] = window.JST["partials"]
+window.JST["plain"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var foundHelper, self=this;
+
+
+  return "<p>This is a plain template</p>\n\n";});
+Handlebars.partials["plain"] = window.JST["plain"]
+window.JST["sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
@@ -89,10 +157,17 @@ window.JST["sample"] = function(context) { return HandlebarsTemplates["sample"](
   stack1 = foundHelper || depth0.title;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "</h1>\n<p>This is a sample template</p>\n\n";
+  buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
+Handlebars.partials["sample"] = window.JST["sample"]
+window.JST["subfolder/subsub/_sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var foundHelper, self=this;
 
-window.JST["subfolder/subsub/sample"] = function(context) { return HandlebarsTemplates["subfolder/subsub/sample"](context); };this.HandlebarsTemplates || (this.HandlebarsTemplates = {});this.HandlebarsTemplates["subfolder/subsub/sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+
+  return "<h1>This is a partial in a subdirectory</h1>";});
+Handlebars.partials["subfolder.subsub._sample"] = window.JST["subfolder/subsub/_sample"]
+window.JST["subfolder/subsub/sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
 
@@ -104,5 +179,5 @@ window.JST["subfolder/subsub/sample"] = function(context) { return HandlebarsTem
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n";
   return buffer;});
-
+Handlebars.partials["subfolder.subsub.sample"] = window.JST["subfolder/subsub/sample"]
 })();

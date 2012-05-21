@@ -9,13 +9,25 @@
 </head>
 <body>
   <div id="content"></div>
+  <br />
+  <div id="helpers"></div>
   <script>
     var data = {
       title: 'foobar'
     };
 
-    var tmp = JST.sample( data );
+    var tmp = JST.partials( data );
     var content = $('#content').html( tmp );
+
+
+    var content = $('#helpers').html( JST.helpers({
+        author: {firstName: "Alan", lastName: "Johnson"},
+        body: "I Love Handlebars",
+        comments: [{
+          author: {firstName: "Yehuda", lastName: "Katz"},
+          body: "Me too!"
+        }]
+      }) );
   </script>
 </body>
 </html>

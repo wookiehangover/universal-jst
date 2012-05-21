@@ -98,7 +98,7 @@ vows.describe('Test universal JST').addBatch({
           body: "Me too!"
         }]
       };
-      assert.include(window.JST.helpers(context), '<h1>By Alan Johnson</h1>');
+      assert.include(window.JST.helpers(context), '<h1>By Alan Johnson');
       assert.include(window.JST.partials({ title: 'hello'}), '<h1>hello</h1>');
       assert.include(window.JST.partials({ title: 'hello'}), 'This is a plain template');
       assert.include(window.JST.partials({ title: 'hello'}), 'This is a partial in a subdirectory');

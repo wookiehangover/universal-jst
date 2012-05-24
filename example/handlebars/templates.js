@@ -53,7 +53,9 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</div>\n";
   return buffer;});
-Handlebars.partials["helpers"] = window.JST["helpers"]
+Handlebars.partials["helpers"] = window.JST["helpers"];
+window.JST["helpers"].vars = ["author","body","body.comments","body.comments.author","body.comments.body"];
+
 window.JST["multiple"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
@@ -66,7 +68,9 @@ window.JST["multiple"] = Handlebars.template(function (Handlebars,depth0,helpers
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
-Handlebars.partials["multiple"] = window.JST["multiple"]
+Handlebars.partials["multiple"] = window.JST["multiple"];
+window.JST["multiple"].vars = ["title"];
+
 window.JST["multiple_footer"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
@@ -79,7 +83,9 @@ window.JST["multiple_footer"] = Handlebars.template(function (Handlebars,depth0,
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
-Handlebars.partials["multiple_footer"] = window.JST["multiple_footer"]
+Handlebars.partials["multiple_footer"] = window.JST["multiple_footer"];
+window.JST["multiple_footer"].vars = ["title"];
+
 window.JST["multiple_foo_bar"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, stack2, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
@@ -120,7 +126,9 @@ function program2(depth0,data) {
   stack1 = stack2.call(depth0, stack1, tmp1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;});
-Handlebars.partials["multiple_foo_bar"] = window.JST["multiple_foo_bar"]
+Handlebars.partials["multiple_foo_bar"] = window.JST["multiple_foo_bar"];
+window.JST["multiple_foo_bar"].vars = ["foo","foo..foo","foo..foo."];
+
 window.JST["partials"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers; partials = partials || Handlebars.partials;
   var buffer = "", stack1, foundHelper, self=this;
@@ -139,14 +147,9 @@ window.JST["partials"] = Handlebars.template(function (Handlebars,depth0,helpers
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n";
   return buffer;});
-Handlebars.partials["partials"] = window.JST["partials"]
-window.JST["plain"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  var foundHelper, self=this;
+Handlebars.partials["partials"] = window.JST["partials"];
+window.JST["partials"].vars = [];
 
-
-  return "<p>This is a plain template</p>\n\n";});
-Handlebars.partials["plain"] = window.JST["plain"]
 window.JST["sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
@@ -159,14 +162,27 @@ window.JST["sample"] = Handlebars.template(function (Handlebars,depth0,helpers,p
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n\n";
   return buffer;});
-Handlebars.partials["sample"] = window.JST["sample"]
+Handlebars.partials["sample"] = window.JST["sample"];
+window.JST["sample"].vars = ["title"];
+
+window.JST["plain"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var foundHelper, self=this;
+
+
+  return "<p>This is a plain template</p>\n\n";});
+Handlebars.partials["plain"] = window.JST["plain"];
+window.JST["plain"].vars = [];
+
 window.JST["subfolder/subsub/_sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var foundHelper, self=this;
 
 
   return "<h1>This is a partial in a subdirectory</h1>";});
-Handlebars.partials["subfolder.subsub._sample"] = window.JST["subfolder/subsub/_sample"]
+Handlebars.partials["subfolder.subsub._sample"] = window.JST["subfolder/subsub/_sample"];
+window.JST["subfolder/subsub/_sample"].vars = [];
+
 window.JST["subfolder/subsub/sample"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
@@ -179,5 +195,7 @@ window.JST["subfolder/subsub/sample"] = Handlebars.template(function (Handlebars
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "title", { hash: {} }); }
   buffer += escapeExpression(stack1) + "</h1>\n";
   return buffer;});
-Handlebars.partials["subfolder.subsub.sample"] = window.JST["subfolder/subsub/sample"]
+Handlebars.partials["subfolder.subsub.sample"] = window.JST["subfolder/subsub/sample"];
+window.JST["subfolder/subsub/sample"].vars = ["title"];
+
 })();

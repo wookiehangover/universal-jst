@@ -165,6 +165,25 @@ notation.
 
     JST["sub/folder/template"]
 
+## Template engine options
+
+Each template engine is different, and may be configured via options.
+
+### Dust.js
+
+Partials are working. Look at this example [helper](universal-jst/tree/master/example/dust/templates/partials.dust)
+
+### Handlebars
+
+Partials are working. Each template is also a partial, i.e. `Handlebars.partials == window.JST`
+
+`--helpers /path/to/a/dir/containing/helpers` look at this example [helper](universal-jst/tree/master/example/handlebars/helpers), [template](universal-jst/tree/master/example/handlebars/templates/helpers.hbs)
+
+### Underscore
+
+`--evaluate`, `--interpolate`, `--escape` are accepted. Those strings will be transformed into a new RegExp
+
+
 ## Contributing
 
 This is a need-based project, so I only wrote it to account for my

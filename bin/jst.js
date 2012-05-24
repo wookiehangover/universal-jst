@@ -28,7 +28,6 @@ var nopt = require("nopt")
                   , "verbose"   : "Print logs for debug"
                   }
   , defaults = { "inputdir"  : process.cwd()
-               , "output"    : process.cwd()
                , "watch"     : false
                , "namespace" : engines.defaults.namespace
                , "include"   : engines.defaults.include
@@ -57,7 +56,7 @@ if(!options.template){
   process.exit(-1);
 
   function showUsage(){
-    var usage = 'Usage: jst [--template format: ' + allowedengine.join('|') + '] [INPUT_DIR] [OUTPUT]';
+    var usage = 'Usage: jst [--template format: ' + allowedengine.join('|') + '] [INPUT_DIR] [OUTPUT?]';
     var out = {}
       , getLenght = function( it ){ return it.length }
       , optsLen  = _(_(description).keys()  ).max(getLenght).length
@@ -94,8 +93,9 @@ if(!options.template){
 
 if(options.argv.remain && options.argv.remain.length >=1 ) options.inputdir = options.argv.remain[0];
 if(options.argv.remain && options.argv.remain.length >=2 ) options.output = options.argv.remain[1];
+if(!options.output) options.stdout = true;
 
-if(!options.inputdir || !options.output) return optimist.showHelp();
+if(!options.inputdir) return optimist.showUsage();
 
 if(!options.templates in engines) {
   return console.error('--template ' + options.template + ' is not allowed. Use ' + allowedengine);
@@ -122,21 +122,8 @@ function write( data, callback ){
     return console.log(data);
   }
   var output = options.output;
-  fs.stat(output, function(err, stat){
-    if(err){
-      // do nothing
-    }else if(stat.isFile()){
-      // do nothing
-    }else if(stat.isDirectory()){
-      // if `output` is a directory, create a new file called `templates.js` in this directory.
-      output = join(output, 'templates.js');
-    }else{
-      return engines.handleError(ouput, 'is not a file nor a directory');
-    }
-
-    fs.writeFile( output, data, 'utf8', function( err ){
-      if( typeof callback == "function" ) callback(err, output);
-    });
+  fs.writeFile( output, data, 'utf8', function( err ){
+    if( typeof callback == "function" ) callback(err, output);
   });
 };
 

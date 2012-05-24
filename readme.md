@@ -47,19 +47,19 @@ Or from sources
 
 universal-jst comes with a command line tool.
 
-    $ jst --template [template_engine] [path/to/templates] [path/to/output]
+    $ jst --template [template-engine] [path/to/templates] > [path/to/output]
 
 or
 
-    $ jst --template [template-engine] [path/to/templates] --stdout > [path/to/output]
+    $ jst --template [template_engine] [path/to/templates] [path/to/output]
 
 Usage :
 
-    $ jst [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu] [INPUT_DIR] [OUTPUT]
+    $ jst [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu] [INPUT_DIR] [OUTPUT?]
 
       --template -t    format : string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu
       --inputdir -i    directory containings the templates to compile                                    $PWD
-      --output -o      output where templates will be compiled                                           $PWD
+      --output -o      output where templates will be compiled
       --watch -w       watch `inputdir` for change                                                       false
       --namespace -ns  object in the browser containing the templates                                    window.JST
       --include -I     Glob patterns for templates files to include in `inputdir`                        **/*

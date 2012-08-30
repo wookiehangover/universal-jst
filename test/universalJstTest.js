@@ -40,13 +40,14 @@ vows.describe('Test universal JST').addBatch({
       engines.underscore(example('underscore'), this.callback)
     },
     'Then an array is returned': function(arr){
-      assert.equal(arr.length, 8);
+      assert.equal(arr.length, 9);
     },
     'Then the templates are valid': function(arr){
       var str = arr.join('\n');
       var window = {};
       vm.runInNewContext(str, { window: window, _: _ });
       assert.include(window.JST.sample({ title: 'hello', foo: [1,2,3] }), '<div>1</div>');
+      assert.include(window.JST["sample.with.dots"]({ title: 'hello', foo: [1,2,3] }), '<div>1</div>');
       assert.include(window.JST.multiple({ title: 'hello' }), '<h1>hello</h1>');
       assert.include(window.JST.multiple_header({ title: 'hello'}), '<h1>hello</h1>');
       assert.include(window.JST.multiple_footer({ title: 'hello'}), '<h1>hello</h1>');

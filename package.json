@@ -1,11 +1,11 @@
 {
   "author": "wookiehangover <sam@quickleft.com>",
-  "contributors":[
+  "contributors": [
     "filirom1 <filirom1@gmail.com>"
   ],
   "name": "universal-jst",
   "description": "Pre-compiled JavaScript Templates",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "licenses": [
     {
       "type": "MIT",
@@ -26,7 +26,7 @@
     "glob": "~3.1.9",
     "nopt": "~1.0.10",
     "dustjs-linkedin": "~0.4.0",
-    "hogan": "~1.0.5-dev"
+    "hogan.js": "~2.0.0"
   },
   "devDependencies": {
     "vows": "~0.6.2"

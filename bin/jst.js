@@ -8,7 +8,7 @@ var nopt = require("nopt")
   , join = Path.join
   , _ = require('underscore')
   , engines = require('../lib/index')
-  , allowedengine = ['string', 'underscore', '_', 'jquery-tmpl', 'handlebars', 'hbs', 'dust', 'hogan', 'mustache', 'mu']
+  , allowedengine = ['string', 'underscore', '_', 'lodash', 'jquery-tmpl', 'handlebars', 'hbs', 'dust', 'hogan', 'mustache', 'mu']
   , knownOpts = { "template"  : allowedengine
                 , "inputdir"  : Path
                 , "output"    : Path

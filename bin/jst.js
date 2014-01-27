@@ -8,7 +8,7 @@ var nopt = require("nopt")
   , join = Path.join
   , _ = require('underscore')
   , engines = require('../lib/index')
-  , allowedengine = ['string', 'underscore', '_', 'jquery-tmpl', 'handlebars', 'hbs', 'dust', 'hogan', 'mustache', 'mu']
+  , allowedengine = ['string', 'underscore', '_', 'lodash', 'jquery-tmpl', 'handlebars', 'hbs', 'dust', 'hogan', 'mustache', 'mu']
   , knownOpts = { "template"  : allowedengine
                 , "inputdir"  : Path
                 , "output"    : Path
@@ -17,6 +17,7 @@ var nopt = require("nopt")
                 , "include"   : String
                 , "stdout"    : Boolean
                 , "verbose"   : Boolean
+                , "variable"  : String
                 }
   , description = { "template"  : "format : " + allowedengine.join('|')
                   , "inputdir"  : "directory containings the templates to compile"
@@ -26,6 +27,7 @@ var nopt = require("nopt")
                   , "include"   : "Glob patterns for templates files to include in `inputdir`"
                   , "stdout"    : "Print the result in stdout instead of writing in a file"
                   , "verbose"   : "Print logs for debug"
+                  , "variable"  : "Set templateSettings.variable"
                   }
   , defaults = { "inputdir"  : process.cwd()
                , "watch"     : false
@@ -42,6 +44,7 @@ var nopt = require("nopt")
                  , "I"  : ["--include"]
                  , "s"  : ["--stdout"]
                  , "v"  : ["--verbose"]
+                 , "V"  : ["--variable"]
                  }
   , options = nopt(knownOpts, shortHands, process.argv, 2)
   , inputdir;

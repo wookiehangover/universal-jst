@@ -55,9 +55,9 @@ or
 
 Usage :
 
-    $ jst [--template format: string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu] [INPUT_DIR] [OUTPUT?]
+    $ jst [--template format: string|underscore|_|lodash|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu] [INPUT_DIR] [OUTPUT?]
 
-      --template -t    format : string|underscore|_|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu
+      --template -t    format : string|underscore|_|lodash|jquery-tmpl|handlebars|hbs|dust|hogan|mustache|mu
       --inputdir -i    directory containings the templates to compile                                    $PWD
       --output -o      output where templates will be compiled
       --watch -w       watch `inputdir` for change                                                       false
@@ -65,6 +65,7 @@ Usage :
       --include -I     Glob patterns for templates files to include in `inputdir`                        **/*
       --stdout -s      Print the result in stdout instead of writing in a file                           false
       --verbose -v     Print logs for debug                                                              false
+      --variable -V    Set _.tempateSettings.variable value
 
 
 ## Node usage.
@@ -79,6 +80,7 @@ Universal-JST export a list of engines.
       hbs: [Function: build],
       'jquery-tmpl': [Function: build],
       underscore: [Function: build],
+      lodash: [Function: build],
       dust: [Function: build],
       mu: [Function: build],
       mustache: [Function: build],
@@ -179,9 +181,10 @@ Partials are working. Each template is also a partial, i.e. `Handlebars.partials
 
 `--helpers /path/to/a/dir/containing/helpers` look at this example [helper](universal-jst/tree/master/example/handlebars/helpers), [template](universal-jst/tree/master/example/handlebars/templates/helpers.hbs)
 
-### Underscore
+### Underscore or Lodash
 
-`--evaluate`, `--interpolate`, `--escape` are accepted. Those strings will be transformed into a new RegExp
+`--evaluate`, `--interpolate`, `--escape` are accepted. Those strings will be transformed into a new RegExp.
+`--variable` option can be specified to prevent `with` construction usage.
 
 
 ## Contributing
